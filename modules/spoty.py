@@ -7,6 +7,7 @@ def getCurrentSong(link,accessToken):
         "Authorization": f"Bearer {accessToken}"
     })
     json_response = response.json()
+    
     song = {
         "name":json_response["item"]["name"],
         "album":json_response["item"]["album"]["name"],
