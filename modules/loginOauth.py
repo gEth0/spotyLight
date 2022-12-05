@@ -1,6 +1,8 @@
-from requests_oauthlib import OAuth2Session
-from requests.auth import HTTPBasicAuth
-
+try:
+    from requests_oauthlib import OAuth2Session
+    from requests.auth import HTTPBasicAuth
+except:
+    print("Make sure you have installed all the dependencies")
 
 def getSecretToken(clientId,clientSecret,redirect_uri,authorization_base_url,token_url,scope):
     spotify = OAuth2Session(clientId, scope=scope, redirect_uri=redirect_uri)
