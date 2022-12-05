@@ -25,7 +25,6 @@ scope = [
 ]
 
 
-
 try:
     with open("spotyCred.json","r",encoding="utf-8") as credentials:
         data =json.loads(credentials.read())
@@ -45,18 +44,24 @@ try :
 except:
     print("Read the documentation for set up the files")
     exit()
-loginOAuthData=getSecretToken(clientId,clientSecret,redirect_uri, authorization_base_url, token_url, scope)
-if(isTokenValid(loginOAuthData)):
-        loginOAuthData=getSecretToken(clientId,clientSecret,redirect_uri, authorization_base_url, token_url, scope)
-while True:
+    
+def main():
+    loginOAuthData=getSecretToken(clientId,clientSecret,redirect_uri, authorization_base_url, token_url, scope)
     if(isTokenValid(loginOAuthData)):
-        loginOAuthData=getSecretToken(clientId,clientSecret,redirect_uri, authorization_base_url, token_url, scope)
+            loginOAuthData=getSecretToken(clientId,clientSecret,redirect_uri, authorization_base_url, token_url, scope)
+    while True:
+        if(isTokenValid(loginOAuthData)):
+            loginOAuthData=getSecretToken(clientId,clientSecret,redirect_uri, authorization_base_url, token_url, scope)
 
-    else:
-        accessToken = loginOAuthData["accessToken"]
-        songData = getCurrentSong(currentSongLink, accessToken)
-        downloadCover(songData["imageUrl"])
-        domColor = getDominantColor()
-        setLightColor(deviceId, deviceAddress, localKey, domColor)
+        else:
+            accessToken = loginOAuthData["accessToken"]
+            songData = getCurrentSong(currentSongLink, accessToken)
+            downloadCover(songData["imageUrl"])
+            domColor = getDominantColor()
+            setLightColor(deviceId, deviceAddress, localKey, domColor)
 
-    t.sleep(20) #Modify here to set a custom time of refresh
+        t.sleep(20) #Modify here to set a custom time of refresh
+
+
+if __name__ == "__main__":
+    main()
