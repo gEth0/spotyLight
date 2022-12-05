@@ -8,6 +8,10 @@ def getCurrentSong(link,accessToken):
         "Content-Type": "application/json",
         "Authorization": f"Bearer {accessToken}"
     })
+    
+    if(response.status_code == 204):
+        print("Make sure one song is currently playing")
+        exit()
 
     json_response = response.json()
 
