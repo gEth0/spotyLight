@@ -83,7 +83,8 @@ or
 python3 main.py
 ``` 
 # Credentials : 
-### When successfully running on your machine it'll prompt you to go at the link on the screen. You have to click it ,login with your spotify account and accept the terms.
+### When successfully running on your machine it'll prompt you to go at the link on the screen. 
+### You have to click it ,login with your spotify account and accept the terms.
 ### Then it'll redirect you to another page; You simply have to copy all the url of the new page and paste it in the terminal.
 ### 🎵 Enjoy your music with a dynamic light! 💡
 # Found an Issue?
