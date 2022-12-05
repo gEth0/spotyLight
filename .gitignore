@@ -4,4 +4,7 @@ images/cover.jpg
 notes.md
 *.html
 README.md
+<<<<<<< HEAD
 *.pyc
+=======
+>>>>>>> tkGui

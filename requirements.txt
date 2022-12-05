@@ -1,2 +1,4 @@
 tinytuya
 colorthief
+tkinter
+customtkinter
