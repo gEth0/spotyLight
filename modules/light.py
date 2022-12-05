@@ -31,10 +31,10 @@ def checkStatus(deviceId,deviceAddress,localKey):
     infoData = light.state()
     
     if(infoData['is_on']==True):
-        print('on')
+        
         return 1
     else:
-        print('off')
+        
         return 0
 
 def turnLightOnFun(deviceId,deviceAddress,localKey):

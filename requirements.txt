@@ -1,4 +1,5 @@
 tinytuya
 colorthief
-tkinter
-customtkinter
+customtkinter==5.0.1
+requests
+requests_oauthlib

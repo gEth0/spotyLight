@@ -43,9 +43,13 @@ def getMode(choice):
             setLightColor(deviceId, deviceAddress, localKey, list(color[0]))
     if (choice == "spotify"):
         try:
-            subprocess.Popen(["python3","main.py"])
+            if sys.platform.startswith("win"):
+                subprocess.Popen(["python","main.py"])
+            else:
+                subprocess.Popen(["python3","main.py"])
         except:
-            subprocess.Popen(["python","main.py"])
+            print("Error running spotyLight Core")
+            exit()
 def updateSpotyCreds():
     writeSpotyCreds(clientId.get(),clientSecret.get())
 
@@ -116,7 +120,6 @@ window.resizable(False,False)
 
 
 value = customtkinter.IntVar(value=checkStatus(deviceId, deviceAddress, localKey))
-print(value.get())
 switchFrame = customtkinter.CTkFrame(master=window,width=400,height=150,corner_radius=20,)
 switchFrame.pack_propagate(False)
 switchFrame.pack(pady=20)
