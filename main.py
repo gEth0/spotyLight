@@ -10,6 +10,8 @@ try:
     from loginOauth import getSecretToken
     from checkToken import isTokenValid
     import time as t
+    import tkinter
+    import customtkinter
 except:
     print("Make sure you have installed all the dependencies")
 
@@ -21,6 +23,9 @@ token_url = "https://accounts.spotify.com/api/token"
 scope = [
      "user-read-currently-playing"
 ]
+
+
+
 try:
     with open("spotyCred.json","r",encoding="utf-8") as credentials:
         data =json.loads(credentials.read())
