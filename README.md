@@ -24,7 +24,7 @@
 # Python
 First install all the dependencies needed typing : 
 ```python
-pip install -t requirements.txt
+pip install -r requirements.txt
 ```
 
 
