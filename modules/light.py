@@ -1,4 +1,8 @@
-import tinytuya
+try:
+    import tinytuya
+except:
+    print("Make sure you have installed all the dependencies")
+
 def setLightColor(deviceId,deviceAddress,localKey,color):
     light = tinytuya.BulbDevice(deviceId,deviceAddress,localKey)
     light.set_version(3.3)
