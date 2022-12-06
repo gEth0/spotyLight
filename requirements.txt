@@ -3,3 +3,4 @@ colorthief
 customtkinter==5.0.1
 requests
 requests_oauthlib
+plyer

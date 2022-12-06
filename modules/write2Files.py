@@ -24,3 +24,11 @@ def writeDeviceInfo(deviceId,ipAddres,localKey):
         }
         
         file.write(json.dumps(json_file))
+
+def storeSpotyToken(tokenObject):
+    with open("spotyToken.json","w",encoding="utf-8") as file:
+        file.write(json.dumps(tokenObject))
+
+def readSpotyToken():
+    with open("spotyToken.json","r",encoding="utf-8") as file:
+        return json.loads(file.read())

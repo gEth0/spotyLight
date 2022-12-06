@@ -3,12 +3,13 @@ try:
     import sys
     import sys
     sys.path.append(r"modules")
-    from spoty import getCurrentSong
+    from spoty import *
     from downloader import downloadCover
     from color import getDominantColor
     from light import setLightColor
     from loginOauth import getSecretToken
     from checkToken import isTokenValid
+    from write2Files import *
     import time as t
     import tkinter
     import customtkinter
@@ -44,23 +45,22 @@ try :
 except:
     print("Read the documentation for set up the files")
     exit()
+
     
 def main():
-    loginOAuthData=getSecretToken(clientId,clientSecret,redirect_uri, authorization_base_url, token_url, scope)
-    if(isTokenValid(loginOAuthData)):
-            loginOAuthData=getSecretToken(clientId,clientSecret,redirect_uri, authorization_base_url, token_url, scope)
     while True:
-        if(isTokenValid(loginOAuthData)):
+        if(isTokenValid(readSpotyToken()) != True):
             loginOAuthData=getSecretToken(clientId,clientSecret,redirect_uri, authorization_base_url, token_url, scope)
-
+            storeSpotyToken(loginOAuthData)
         else:
-            accessToken = loginOAuthData["accessToken"]
-            songData = getCurrentSong(currentSongLink, accessToken)
+            
+            accessToken = readSpotyToken()["accessToken"]
+            songData = getSongFormatted(currentSongLink,accessToken)
             downloadCover(songData["imageUrl"])
             domColor = getDominantColor()
             setLightColor(deviceId, deviceAddress, localKey, domColor)
 
-        t.sleep(20) #Modify here to set a custom time of refresh
+        t.sleep(15) #Modify here to set a custom time of refresh
 
 
 if __name__ == "__main__":
