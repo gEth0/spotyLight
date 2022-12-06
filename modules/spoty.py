@@ -34,7 +34,8 @@ def getSongFormatted(link,accessToken):
             except:
                 print("Make sure one song is currently playing")
             response=getCurrentSong(link, accessToken)
-            json_response = response.json()
+            if(response.status_code == 200):
+                json_response = response.json()
             if(response.status_code == 204 or json_response["currently_playing_type"]=="ad"):
                 if (counter >9):
                     print("TimeOut")
