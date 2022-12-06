@@ -23,15 +23,19 @@ def getSongFormatted(link,accessToken):
         json_response = response.json()
     except:
         sendNotification("spotyLight","Make sure one song is currently playing")
-    if(response.status_code == 204 or json_response["is_playing"] == False):
+    if(response.status_code == 204 or json_response["is_playing"] == False or json_response["currently_playing_type"]=="ad"):
         boolVar = True
         while (boolVar):
             try:
-                sendNotification("spotyLight","Make sure one song is currently playing")
+                if(json_response["currently_playing_type"]=="ad"):
+                    sendNotification("spotyLight", "An Ad Is Currently Playing")
+                else:
+                    sendNotification("spotyLight","Make sure one song is currently playing")
             except:
                 print("Make sure one song is currently playing")
             response=getCurrentSong(link, accessToken)
-            if(response.status_code == 204):
+            json_response = response.json()
+            if(response.status_code == 204 or json_response["currently_playing_type"]=="ad"):
                 if (counter >9):
                     print("TimeOut")
                     exit()
@@ -43,7 +47,8 @@ def getSongFormatted(link,accessToken):
             time.sleep(10)
 
     json_response = response.json()
-    
+
+
     song = {
             "name":json_response["item"]["name"],
             "album":json_response["item"]["album"]["name"],

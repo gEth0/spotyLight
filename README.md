@@ -82,6 +82,22 @@ or
 ```python
 python3 main.py
 ``` 
+# 6) *OPTIONAL*
+### If you want to have a nice gui for controll the light and change the modality of it simply run:
+```python
+python3 tkGui.py
+```
+or
+```python
+python tkGui.py
+```
+<p align="center">
+
+  <img src="./images/one.png" height=400/>
+
+  <img src="./images/two.png" height=400/>
+</p>
+
 # Credentials : 
 ### When successfully running on your machine it'll prompt you to go at the link on the screen. 
 ### You have to click it ,login with your spotify account and accept the terms.
