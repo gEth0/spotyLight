@@ -113,7 +113,6 @@ def setConfigFilesDef():
 
 window.title("SpotyLight")
 window.geometry("500x500")
-window.iconbitmap("images\guiLogo.ico")
 customtkinter.set_appearance_mode("System") 
 customtkinter.set_default_color_theme("blue") 
 window.resizable(False,False)
