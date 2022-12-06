@@ -8,7 +8,8 @@ def setLightColor(deviceId,deviceAddress,localKey,color):
     light.set_version(3.3)
     light.set_socketPersistent(True)
     infoData = light.state()
-
+    if(infoData["is_on"]==False):
+        light.turn_on()
     light.set_colour(color[0],color[1], color[2])
 
 def toggleLight(deviceId,deviceAddress,localKey):

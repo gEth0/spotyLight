@@ -16,21 +16,24 @@ deviceIdVar = customtkinter.StringVar()
 ipAddressVar = customtkinter.StringVar()
 localKeyVar = customtkinter.StringVar()
 
-
-try :
-    with open("deviceInfo.json","r",encoding="utf-8") as infosFile:
-        info=json.loads(infosFile.read())
-        deviceId = info["deviceId"]
-        deviceAddress = info["deviceAddress"]
-        localKey = info["localKey"]
-        infosFile.close()
-except:
-    print("Read the documentation for set up the files")
-    exit()
+def getDeviceInfoVariables():
+    try :
+        with open("deviceInfo.json","r",encoding="utf-8") as infosFile:
+            info=json.loads(infosFile.read())
+            deviceId = info["deviceId"]
+            deviceAddress = info["deviceAddress"]
+            localKey = info["localKey"]
+            infosFile.close()
+            return deviceId,deviceAddress,localKey
+    except:
+        print("Read the documentation for set up the files")
+        exit()
 
 def turnLightOnDef():
+    deviceId,deviceAddress,localKey= getDeviceInfoVariables()
     turnLightOnFun(deviceId, deviceAddress, localKey)
 def turnLightOffDef():
+    deviceId,deviceAddress,localKey= getDeviceInfoVariables()
     turnLightOffFun(deviceId, deviceAddress, localKey)
 
 def getMode(choice):
@@ -39,6 +42,7 @@ def getMode(choice):
         if color == (None,None):
             colorLabel.configure(bg_color="transparent")
         else:
+            deviceId,deviceAddress,localKey= getDeviceInfoVariables()
             colorLabel.configure(bg_color=("hex-color",color[1]),corner_radius=50) 
             setLightColor(deviceId, deviceAddress, localKey, list(color[0]))
     if (choice == "spotify"):
@@ -52,9 +56,14 @@ def getMode(choice):
             exit()
 def updateSpotyCreds():
     writeSpotyCreds(clientId.get(),clientSecret.get())
+    clientId.set("")
+    clientSecret.set("")
 
 def updateDeviceInfo():
     writeDeviceInfo(deviceIdVar.get(),ipAddressVar.get(),localKeyVar.get())
+    deviceIdVar.set("")
+    ipAddressVar.set("")
+    localKeyVar.set("")
 
 def setConfigFilesDef():
     inputTopLevel = customtkinter.CTkToplevel()
@@ -112,14 +121,14 @@ def setConfigFilesDef():
 
 
 window.title("SpotyLight")
-window.geometry("500x500")
+window.geometry("600x600")
 customtkinter.set_appearance_mode("System") 
 customtkinter.set_default_color_theme("blue") 
 window.resizable(False,False)
 
 
 
-value = customtkinter.IntVar(value=checkStatus(deviceId, deviceAddress, localKey))
+
 switchFrame = customtkinter.CTkFrame(master=window,width=400,height=150,corner_radius=20,)
 switchFrame.pack_propagate(False)
 switchFrame.pack(pady=20)

@@ -1,7 +1,10 @@
 try:
     import requests
+    import time
+    from notify import *
 except:
     print("Make sure you have installed all the dependencies")
+
 def getCurrentSong(link,accessToken):
     response = requests.get(link,headers={
         "Accept": "application/json",
@@ -9,20 +12,43 @@ def getCurrentSong(link,accessToken):
         "Authorization": f"Bearer {accessToken}"
     })
     
-    if(response.status_code == 204):
-        print("Make sure one song is currently playing")
-        exit()
+    return response
+
+
+
+def getSongFormatted(link,accessToken):
+    counter = 0
+    response = getCurrentSong(link, accessToken)
+    try:
+        json_response = response.json()
+    except:
+        sendNotification("spotyLight","Make sure one song is currently playing")
+    if(response.status_code == 204 or json_response["is_playing"] == False):
+        boolVar = True
+        while (boolVar):
+            try:
+                sendNotification("spotyLight","Make sure one song is currently playing")
+            except:
+                print("Make sure one song is currently playing")
+            response=getCurrentSong(link, accessToken)
+            if(response.status_code == 204):
+                if (counter >9):
+                    print("TimeOut")
+                    exit()
+                else:
+                    counter +=1
+            else:
+
+                boolVar=False
+            time.sleep(10)
 
     json_response = response.json()
-
-    try:
-        song = {
+    print(json_response)
+    song = {
             "name":json_response["item"]["name"],
             "album":json_response["item"]["album"]["name"],
             "imageUrl":json_response["item"]["album"]["images"][2]["url"],
             "artist":json_response["item"]["album"]["artists"][0]["name"]
-        }
-    except:
-        print("Make sure the song is currently playing")
-        exit()
+        }        
     return song
+
