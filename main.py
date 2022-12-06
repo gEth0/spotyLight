@@ -13,6 +13,7 @@ try:
     import time as t
     import tkinter
     import customtkinter
+    import pathlib
 except:
     print("Make sure you have installed all the dependencies")
 
@@ -45,6 +46,13 @@ try :
 except:
     print("Read the documentation for set up the files")
     exit()
+
+try:
+    f = open("spotyToken.json")
+except IOError:
+    loginOAuthData=getSecretToken(clientId,clientSecret,redirect_uri, authorization_base_url, token_url, scope)
+    storeSpotyToken(loginOAuthData)
+
 
     
 def main():

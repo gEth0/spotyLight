@@ -43,7 +43,7 @@ def getSongFormatted(link,accessToken):
             time.sleep(10)
 
     json_response = response.json()
-    print(json_response)
+    
     song = {
             "name":json_response["item"]["name"],
             "album":json_response["item"]["album"]["name"],
