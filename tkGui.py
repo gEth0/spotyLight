@@ -1,13 +1,18 @@
-import tkinter
-import customtkinter
-import sys
-import json
-from tkinter.colorchooser import askcolor
-sys.path.append(r"modules")
-from light import *
-import subprocess
-from write2Files import *
-import os
+try:
+    import tkinter
+    import customtkinter
+    import sys
+    import json
+    from tkinter.colorchooser import askcolor
+    sys.path.append(r"modules")
+    from light import *
+    import subprocess
+    from write2Files import *
+    import os
+    from notify import sendNotification
+except:
+    print("Make sure you have installed all the dependencies")
+    
 window = customtkinter.CTk()
 
 clientId = customtkinter.StringVar()
@@ -36,6 +41,8 @@ def turnLightOffDef():
     deviceId,deviceAddress,localKey= getDeviceInfoVariables()
     turnLightOffFun(deviceId, deviceAddress, localKey)
 
+isSpotifyMode = False
+spotifyCore = ""
 def getMode(choice):
     if (choice =="manual"):
         color = askcolor(title="Choose the color you want")
@@ -45,15 +52,25 @@ def getMode(choice):
             deviceId,deviceAddress,localKey= getDeviceInfoVariables()
             colorLabel.configure(bg_color=("hex-color",color[1]),corner_radius=50) 
             setLightColor(deviceId, deviceAddress, localKey, list(color[0]))
+
     if (choice == "spotify"):
-        try:
-            if sys.platform.startswith("win"):
-                subprocess.Popen(["python","main.py"])
-            else:
-                subprocess.Popen(["python3","main.py"])
-        except:
-            print("Error running spotyLight Core")
-            exit()
+        global spotifyCore
+        global isSpotifyMode
+        if isSpotifyMode:
+            sendNotification("spotyLight", "Spotify Core Is Already Running")
+        else:
+            try:
+                isSpotifyMode = True
+                if sys.platform.startswith("win"):
+                   spotifyCore= subprocess.Popen(["python","main.py"])
+                   
+                else:
+                    spotifyCore =subprocess.Popen(["python3","main.py"])
+                    
+            except:
+                print("Error running spotyLight Core")
+                exit()
+
 def updateSpotyCreds():
     writeSpotyCreds(clientId.get(),clientSecret.get())
     clientId.set("")
@@ -64,6 +81,14 @@ def updateDeviceInfo():
     deviceIdVar.set("")
     ipAddressVar.set("")
     localKeyVar.set("")
+
+def on_closing():
+    global isSpotifyMode
+    global spotifyCore
+    if(isSpotifyMode):
+        spotifyCore.kill()
+    window.destroy()
+
 
 def setConfigFilesDef():
     inputTopLevel = customtkinter.CTkToplevel()
@@ -154,5 +179,10 @@ colorLabel.place(rely=0.8,relx=0.5,anchor=tkinter.CENTER)
 
 setConfigFilesBtn = customtkinter.CTkButton(master=switchFrame,text="Set Config Files",command=setConfigFilesDef)
 setConfigFilesBtn.place(rely=0.8,relx=0.5,anchor=tkinter.CENTER)
+
+
+
+window.protocol("WM_DELETE_WINDOW", on_closing)
+
 
 window.mainloop()

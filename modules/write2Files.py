@@ -18,7 +18,7 @@ def writeDeviceInfo(deviceId,ipAddres,localKey):
     with open("deviceInfo.json","w",encoding="utf-8") as file:
 
         json_file = {
-            "deviceId" : clientId,
+            "deviceId" : deviceId,
             "deviceAddress" : ipAddres,
             "localKey":localKey
         }
