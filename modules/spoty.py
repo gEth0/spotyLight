@@ -37,7 +37,7 @@ def getSongFormatted(link,accessToken):
             if(response.status_code == 200):
                 json_response = response.json()
             if(response.status_code == 204 or json_response["currently_playing_type"]=="ad"):
-                if (counter >1):
+                if (counter >9):
                     print("TimeOut: You are listening music no more \n Exit")
                     exit()
                 else:
