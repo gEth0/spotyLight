@@ -19,11 +19,13 @@ def getCurrentSong(link,accessToken):
 def getSongFormatted(link,accessToken):
     counter = 0
     response = getCurrentSong(link, accessToken)
+    print(response.content)
     try:
         json_response = response.json()
     except:
         sendNotification("spotyLight","Make sure one song is currently playing")
-    if(response.status_code == 204 or json_response["is_playing"] == False or json_response["currently_playing_type"]=="ad"):
+    
+    if(response.status_code == 204 or json_response=="" or json_response["currently_playing_type"]=="ad"):
         boolVar = True
         while (boolVar):
             try:
