@@ -19,7 +19,7 @@ def getCurrentSong(link,accessToken):
 def getSongFormatted(link,accessToken):
     counter = 0
     response = getCurrentSong(link, accessToken)
-    print(response.content)
+   
     try:
         json_response = response.json()
     except:
