@@ -41,6 +41,7 @@ def turnLightOffDef():
     deviceId,deviceAddress,localKey= getDeviceInfoVariables()
     turnLightOffFun(deviceId, deviceAddress, localKey)
 
+
 isSpotifyMode = False
 spotifyCore = ""
 def getMode(choice):
@@ -56,6 +57,9 @@ def getMode(choice):
     if (choice == "spotify"):
         global spotifyCore
         global isSpotifyMode
+
+        
+
         if isSpotifyMode:
             sendNotification("spotyLight", "Spotify Core Is Already Running")
         else:
@@ -70,6 +74,7 @@ def getMode(choice):
             except:
                 print("Error running spotyLight Core")
                 exit()
+
 
 def updateSpotyCreds():
     writeSpotyCreds(clientId.get(),clientSecret.get())
