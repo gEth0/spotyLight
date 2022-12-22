@@ -104,7 +104,7 @@ python tkGui.py
 ### Then it'll redirect you to another page; You simply have to copy all the url of the new page and paste it in the terminal.
 ### 🎵 Enjoy your music with a dynamic light! 💡
 # Found an Issue?
-## Report it by create a [new issue](https://github.com/gEth0/notion-school/issues/new)
+## Report it by create a [new issue](https://github.com/gEth0/spotyLight/issues/new)
 
 # New features and improvements coming soon!
 ### gEth0 💯 
