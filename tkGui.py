@@ -44,7 +44,8 @@ def turnLightOffDef():
 
 isSpotifyMode = False
 spotifyCore = ""
-def getMode(choice):
+
+def changeLightMode(choice):
     if (choice =="manual"):
         color = askcolor(title="Choose the color you want")
         if color == (None,None):
@@ -58,8 +59,6 @@ def getMode(choice):
         global spotifyCore
         global isSpotifyMode
 
-        
-
         if isSpotifyMode:
             sendNotification("spotyLight", "Spotify Core Is Already Running")
         else:
@@ -70,12 +69,14 @@ def getMode(choice):
                    
                 else:
                     spotifyCore =subprocess.Popen(["python3","main.py"])
-                    
             except:
                 print("Error running spotyLight Core")
                 exit()
 
 
+def getMode(choice):
+    changeLightMode(choice)
+    
 def updateSpotyCreds():
     writeSpotyCreds(clientId.get(),clientSecret.get())
     clientId.set("")
@@ -155,8 +156,6 @@ window.geometry("600x600")
 customtkinter.set_appearance_mode("System") 
 customtkinter.set_default_color_theme("blue") 
 window.resizable(False,False)
-
-
 
 
 switchFrame = customtkinter.CTkFrame(master=window,width=400,height=150,corner_radius=20,)

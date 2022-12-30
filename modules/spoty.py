@@ -24,7 +24,7 @@ def getSongFormatted(link,accessToken):
         json_response = response.json()
     except:
         sendNotification("spotyLight","Make sure one song is currently playing")
-    
+    print(json_response)
     if(response.status_code == 204 or json_response=="" or json_response["currently_playing_type"]=="ad"):
         boolVar = True
         while (boolVar):
@@ -58,5 +58,6 @@ def getSongFormatted(link,accessToken):
             "imageUrl":json_response["item"]["album"]["images"][2]["url"],
             "artist":json_response["item"]["album"]["artists"][0]["name"]
         }        
+    
     return song
 
